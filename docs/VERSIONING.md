@@ -4,7 +4,7 @@ RustPLC uses its own [Semantic Versioning](https://semver.org/) lifecycle. OpenP
 
 ## Current line
 
-RustPLC `1.0.0` is the first accepted macOS production release against the pinned compatibility baseline below.
+The source manifests currently use `1.0.0`. This is not evidence of a published, production-qualified, or accepted binary release. Release acceptance requires the checks in PUBLIC_RELEASE.md for the actual artifact and supported platforms.
 
 The pinned compatibility baseline is recorded separately:
 
@@ -15,7 +15,7 @@ The pinned compatibility baseline is recorded separately:
 ## Release rules
 
 - `0.x.y`: pre-1.0 parity/development releases. Compatibility can still change as the OpenPLC contract is completed.
-- `1.0.0`: first professional macOS release for which the pinned-baseline ledger has no release-blocking unapproved divergence and all required compiler/runtime, UI, packaging, MCP, security, persistence, accessibility, and release gates pass.
+- `1.0.0`: the current source version. Do not infer feature completeness, release acceptance, or MCP support from it.
 - `1.x.y`: backwards-compatible RustPLC releases after 1.0.
   - patch: bug/security fixes with no intentional public compatibility break;
   - minor: backwards-compatible features or support expansion;

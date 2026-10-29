@@ -10,7 +10,7 @@
 
 All parity evidence starts from this commit. A baseline update requires a separate issue and a full differential run.
 
-RustPLC 1.0 is released against these explicit pins. OpenPLC releases published after the pins are comparison inputs for future RustPLC minor/major work, not silently incorporated into the 1.0 compatibility claim.
+These pins define the source comparison baseline, not a release or complete-parity claim. Later OpenPLC releases require separate comparison and review before updating the baseline.
 
 ## Generated-program toolchain
 

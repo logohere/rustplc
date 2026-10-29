@@ -41,9 +41,9 @@ python3 scripts/check_versioning.py
 python3 scripts/check_public_source.py
 ```
 
-The [parity ledger](docs/RUSTPLC_PARITY_LEDGER.md) records historical evidence and explicitly invoked heavy tests. The [differential harness](docs/DIFFERENTIAL_HARNESS.md) compares pinned upstream behavior. Neither substitutes for a current run.
+The [verification scope](docs/RUSTPLC_PARITY_LEDGER.md) records preparation checks, gaps, and explicitly invoked heavy tests. The [differential harness](docs/DIFFERENTIAL_HARNESS.md) compares pinned upstream behavior. Neither substitutes for a current run.
 
-Private lab sidecars, plant models, tag maps, and site-specific contracts are excluded. This standalone source export does not provide an MCP server.
+This repository does not provide an MCP server.
 
 ## Contribute
 
