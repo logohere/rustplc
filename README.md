@@ -8,7 +8,7 @@ This is not a safety-certified controller. Build success and simulator tests do 
 
 ## Build
 
-Install Rust and a host C++ compiler. macOS is the primary product host.
+CI uses Rust 1.96.0. Use that toolchain and a host C++ compiler for the documented checks. macOS is the primary product host.
 
 ```sh
 cargo build --locked --workspace
