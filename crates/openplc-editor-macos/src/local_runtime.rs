@@ -512,8 +512,21 @@ mod tests {
         assert_eq!(debug_map["leaves"][0]["elemIdx"], 0);
         assert_eq!(service.start().unwrap(), StartResult::Started);
         assert_eq!(service.state().unwrap(), PlcState::Running);
-        std::thread::sleep(std::time::Duration::from_millis(30));
-        let initial = service.debug_values(&project).unwrap();
+        let wait_for_value = |description: &str, condition: fn(&super::DebugValue) -> bool| {
+            let deadline = Instant::now() + Duration::from_secs(1);
+            loop {
+                let values = service.debug_values(&project).unwrap();
+                assert_eq!(values.len(), 1);
+                if condition(&values[0]) {
+                    break values;
+                }
+                assert!(Instant::now() < deadline, "{description}");
+                std::thread::sleep(Duration::from_millis(10));
+            }
+        };
+        let initial = wait_for_value("initial scan update was not observed", |value| {
+            !value.variable.forced && value.display.parse::<i16>().is_ok_and(|value| value > 0)
+        });
         assert_eq!(initial.len(), 1);
         assert_eq!(initial[0].variable.path, "INSTANCE0.X");
         assert_eq!(initial[0].variable.type_name, "INT");
@@ -523,26 +536,18 @@ mod tests {
         service
             .force_debug_value(&project, "instance0.x", "123")
             .unwrap();
-        std::thread::sleep(std::time::Duration::from_millis(30));
-        let forced = service.debug_values(&project).unwrap();
+        let forced = wait_for_value("queued force was not applied at a scan boundary", |value| {
+            value.variable.forced && value.display == "123"
+        });
         assert_eq!(forced[0].display, "123");
         assert!(forced[0].variable.forced);
 
         service
             .unforce_debug_value(&project, "INSTANCE0.X")
             .unwrap();
-        let deadline = Instant::now() + Duration::from_secs(1);
-        let released = loop {
-            let released = service.debug_values(&project).unwrap();
-            if !released[0].variable.forced && released[0].display != "123" {
-                break released;
-            }
-            assert!(
-                Instant::now() < deadline,
-                "released variable did not resume scan updates"
-            );
-            std::thread::sleep(Duration::from_millis(10));
-        };
+        let released = wait_for_value("released variable did not resume scan updates", |value| {
+            !value.variable.forced && value.display != "123"
+        });
         assert!(!released[0].variable.forced);
         assert_ne!(released[0].display, "123");
 
