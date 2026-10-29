@@ -76,7 +76,8 @@ fn successful_library_without_an_abi_cannot_replace_output() {
     });
     assert!(
         matches!(result, Err(BuildError::InvalidLibrary(_))),
-        "expected ABI validation failure, got {result:?}"
+        "expected ABI validation failure, got {:?}",
+        result.err()
     );
     assert_eq!(fs::read(output).unwrap(), b"prior-good-artifact");
     fs::remove_dir_all(root).unwrap();
