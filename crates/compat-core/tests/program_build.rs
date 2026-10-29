@@ -74,7 +74,10 @@ fn successful_library_without_an_abi_cannot_replace_output() {
         reset_shim: root.join("reset.cpp"),
         output: output.clone(),
     });
-    assert!(matches!(result, Err(BuildError::InvalidLibrary(_))));
+    assert!(
+        matches!(result, Err(BuildError::InvalidLibrary(_))),
+        "expected ABI validation failure, got {result:?}"
+    );
     assert_eq!(fs::read(output).unwrap(), b"prior-good-artifact");
     fs::remove_dir_all(root).unwrap();
 }
