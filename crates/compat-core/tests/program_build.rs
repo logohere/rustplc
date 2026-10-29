@@ -12,10 +12,8 @@ fn test_root() -> PathBuf {
         .unwrap()
         .as_nanos();
     let id = NEXT_ID.fetch_add(1, Ordering::Relaxed);
-    let root = std::env::temp_dir().join(format!(
-        "rustplc-build-{}-{stamp}-{id}",
-        std::process::id()
-    ));
+    let root =
+        std::env::temp_dir().join(format!("rustplc-build-{}-{stamp}-{id}", std::process::id()));
     fs::create_dir(&root).unwrap();
     root
 }
