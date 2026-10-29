@@ -224,3 +224,20 @@ fn existing_destination_is_unchanged() {
     ));
     assert_eq!(fs::read(fixture.staging.join("prior")).unwrap(), b"keep");
 }
+
+#[test]
+fn rejects_different_local_and_central_header_names_before_staging() {
+    let fixture = Fixture::new("header-names");
+    fixture.write(&[("safe.cpp", b"source")], CompressionMethod::Stored);
+    let mut bytes = fs::read(&fixture.archive).unwrap();
+    let central = bytes
+        .windows(4)
+        .position(|window| window == b"PK\x01\x02")
+        .unwrap();
+    assert_eq!(&bytes[central + 46..central + 54], b"safe.cpp");
+    bytes[central + 46..central + 54].copy_from_slice(b"evil.cpp");
+    fs::write(&fixture.archive, bytes).unwrap();
+
+    assert!(stage_archive(&fixture.archive, &fixture.staging).is_err());
+    assert!(!fixture.staging.exists());
+}

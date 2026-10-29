@@ -371,6 +371,9 @@ fn unzip_entries(bytes: &[u8]) -> Result<HashMap<String, Vec<u8>>, String> {
             archive.len()
         ));
     }
+    archive
+        .validate_header_consistency()
+        .map_err(|error| format!("inconsistent CODESYS V3 ZIP headers: {error}"))?;
     let mut total = 0u64;
     let mut entries = HashMap::new();
     for index in 0..archive.len() {
@@ -380,11 +383,12 @@ fn unzip_entries(bytes: &[u8]) -> Result<HashMap<String, Vec<u8>>, String> {
         if file.is_dir() {
             continue;
         }
+        let name = file
+            .name()
+            .map_err(|error| format!("read CODESYS V3 ZIP entry name: {error}"))?
+            .into_owned();
         if file.size() > MAX_ZIP_ENTRY_BYTES {
-            return Err(format!(
-                "CODESYS V3 ZIP entry {} exceeds size limit",
-                file.name()
-            ));
+            return Err(format!("CODESYS V3 ZIP entry {} exceeds size limit", name));
         }
         total = total
             .checked_add(file.size())
@@ -392,7 +396,6 @@ fn unzip_entries(bytes: &[u8]) -> Result<HashMap<String, Vec<u8>>, String> {
         if total > MAX_ARCHIVE_BYTES as u64 {
             return Err("CODESYS V3 ZIP exceeds uncompressed size limit".to_owned());
         }
-        let name = file.name().to_owned();
         if name.contains("../") || name.contains("..\\") || name.starts_with(['/', '\\']) {
             return Err(format!("unsafe CODESYS V3 ZIP entry path {name:?}"));
         }

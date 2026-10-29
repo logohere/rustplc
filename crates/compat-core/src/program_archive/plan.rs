@@ -35,8 +35,9 @@ pub(super) fn plan(archive: &mut ZipArchive<File>) -> Result<Vec<PlannedFile>, A
             .checked_add(file.size())
             .ok_or(ArchiveError::Invalid(ArchiveViolation::TotalTooLarge))?;
         validate_metadata(&file, total)?;
-        let root = raw_root(file.name());
-        let (path, junk) = components(file.name(), file.is_file())?;
+        let name = file.name()?;
+        let root = raw_root(&name);
+        let (path, junk) = components(&name, file.is_file())?;
         entries.push(Entry {
             index,
             root,
@@ -46,7 +47,9 @@ pub(super) fn plan(archive: &mut ZipArchive<File>) -> Result<Vec<PlannedFile>, A
             file: file.is_file(),
         });
     }
-    finish(entries)
+    let files = finish(entries)?;
+    archive.validate_header_consistency()?;
+    Ok(files)
 }
 
 fn validate_metadata<R: std::io::Read>(

@@ -565,6 +565,9 @@ fn extract_vpp(path: &Path, destination: &Path) -> Result<(), String> {
             archive.len()
         ));
     }
+    archive
+        .validate_header_consistency()
+        .map_err(|error| format!("Inconsistent VPP ZIP headers: {error}"))?;
     let mut total = 0u64;
     let mut seen = BTreeSet::new();
     for index in 0..archive.len() {

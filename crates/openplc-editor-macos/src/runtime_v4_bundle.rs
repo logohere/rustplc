@@ -303,7 +303,10 @@ mod tests {
     fn runtime_v4_zip_contains_the_same_root_layout() {
         let bytes = build_runtime_v4_zip(&fixture(), &project_fixture()).unwrap();
         let mut archive = ZipArchive::new(Cursor::new(bytes)).unwrap();
-        let names = archive.file_names().map(str::to_owned).collect::<Vec<_>>();
+        let names = archive
+            .file_names()
+            .map(|name| name.unwrap().into_owned())
+            .collect::<Vec<_>>();
         assert!(names.contains(&"generated.hpp".to_owned()));
         assert!(names.contains(&"configuration.cpp".to_owned()));
         assert!(names.contains(&"strucpp_runtime/include/iec_types.hpp".to_owned()));
