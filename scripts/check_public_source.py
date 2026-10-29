@@ -7,8 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDE = {".git", "target", "artifacts", "__pycache__"}
 RULES = {
-    "machine home path": re.compile(r"(?<![A-Za-z0-9:/])/(?:Users|home)/[^/\s\"']+/|[A-Za-z]:\\\\?Users\\\\?[^\\\s]+\\"),
-    "other owner repository": re.compile(r"\blogohere/(?!rustplc\b)[A-Za-z0-9_.-]+"),
+    "machine home path": re.compile(r"(?<![A-Za-z0-9:/])/(?:Users|home)/[^/\s\"']+|[A-Za-z]:\\\\?Users\\\\?[^\\\s]+"),
+    "other owner repository": re.compile(r"\blogohere/(?!rustplc(?:\.git)?(?![A-Za-z0-9_.-]))[A-Za-z0-9_.-]+"),
     "private key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |DSA )?PRIVATE KEY-----"),
     "GitHub token": re.compile(r"\b(?:gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,})\b"),
     "AWS access key": re.compile(r"\b(?:AKIA|ASIA)[A-Z0-9]{16}\b"),

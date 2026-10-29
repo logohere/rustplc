@@ -11,7 +11,7 @@
 
 After the owner approves publication, verify these settings through the GitHub API:
 
-- `main` and `development`: PR-only changes, required GitHub Actions checks `Rust checks` and `Public source checks`, up-to-date branches, resolved conversations, linear history, no deletion or force-push. These gates have no bypass actors.
+- `main` and `development`: PR-only changes, required GitHub Actions checks `Rust checks`, `Public source checks`, and `Dependency audit`, up-to-date branches, resolved conversations, linear history, no deletion or force-push. These gates have no bypass actors.
 - A separate review ruleset requires fresh owner/code-owner approval; only the repository owner can bypass that approval on a PR. That exception does not bypass the mandatory check ruleset.
 - `v*` tags: owner-only creation and separate no-bypass update/deletion restrictions.
 - Actions: read-only default token, no PR-approval authority, full-SHA requirement, only the explicit action allowlist, all outside-contributor runs need approval.

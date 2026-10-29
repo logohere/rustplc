@@ -23,6 +23,7 @@ Rust adds trust-boundary checks that the pinned Python implementation does not p
 
 - the ZIP file itself is limited to 10 MiB and must be a regular file;
 - archive entry count is limited to 4096;
+- local and central ZIP headers are checked for consistency before staging;
 - path traversal is rejected by normalized path components, while safe names such as `foo..bar.cpp` remain valid;
 - encrypted entries, unsupported compression methods, duplicate normalized output paths, symlinks, and other non-regular archive entries are rejected before staging;
 - non-empty entries reporting zero compressed bytes are rejected as an invalid compression ratio;
@@ -35,7 +36,7 @@ These are deliberate hardening differences, not claims that the pinned Python im
 
 ## Dependency
 
-`zip` is pinned to `8.0.0` with default features disabled and only `bzip2`, `deflate-flate2-zlib-rs`, and `lzma` enabled. The crate is MIT licensed and is recorded in `THIRD_PARTY_NOTICES.md`.
+`zip` is pinned to `9.0.5` with default features disabled and only `bzip2`, `deflate-flate2-zlib-rs`, and `lzma` enabled. The crate is MIT licensed and is recorded in `THIRD_PARTY_NOTICES.md`.
 
 ## Evidence
 

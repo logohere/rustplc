@@ -47,6 +47,10 @@
           {
             "context": "Public source checks",
             "integration_id": 15368
+          },
+          {
+            "context": "Dependency audit",
+            "integration_id": 15368
           }
         ]
       }

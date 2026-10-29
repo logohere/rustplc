@@ -27,6 +27,11 @@ def require_at_least(name: str, minimum: tuple[int, int, int]) -> None:
 
 require_at_least("bytes", (1, 11, 1))
 require_at_least("webbrowser", (1, 2, 2))
+require_at_least("zip", (9, 0, 5))
+require_at_least("rustls", (0, 23, 46))
+require_at_least("rustls-webpki", (0, 103, 16))
+require_at_least("webpki-roots", (1, 0, 10))
+require_at_least("tokio", (1, 53, 3))
 
 line = next(
     (line for line in EDITOR_TOML.splitlines() if line.startswith("dioxus-desktop = ")),
