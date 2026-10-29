@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+    branches: [main, development]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    name: Rust checks
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - run: cargo test --locked --workspace --all-targets
+      - run: cargo test --locked -p open-rust-plc-editor local_runtime::tests::builds_starts_and_stops_through_the_app_runtime_service -- --ignored
+      - run: cargo test --locked -p open-rust-plc-editor workflow_parity::tests::modeled_workflow_replays_against_real_project_and_runtime_services -- --ignored
+      - run: python3 scripts/check_editor_css.py
+      - run: python3 scripts/check_unsafe_boundaries.py
+      - run: python3 scripts/check_production_panics.py
+      - run: python3 scripts/check_durable_writes.py
+      - run: python3 scripts/check_dependency_floors.py
+      - run: python3 scripts/check_versioning.py
+  public-source:
+    name: Public source checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: python3 scripts/check_public_source.py
+      - name: Verify pinned secret scanner and scan source
+        shell: bash
+        run: |
+          set -euo pipefail
+          tool_dir="$(mktemp -d)"
+          curl --fail --silent --show-error --location \
+            https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz \
+            --output "$tool_dir/gitleaks.tar.gz"
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  $tool_dir/gitleaks.tar.gz" | sha256sum --check --status
+          tar -xzf "$tool_dir/gitleaks.tar.gz" -C "$tool_dir" gitleaks
+          "$tool_dir/gitleaks" dir . --redact --no-banner

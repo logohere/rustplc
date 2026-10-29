@@ -1,0 +1,14 @@
+{
+  "name": "generated-stats",
+  "baseline_commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "metadata": {
+    "clock": "monotonic_ns",
+    "scheduler": "generated-task-stats",
+    "build_mode": "release"
+  },
+  "events": [
+    {"state": "running"},
+    {"state": "stopped"}
+  ],
+  "volatile_fields": []
+}

@@ -1,0 +1,19 @@
+{
+  "name": "generated-debug-io",
+  "baseline_commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "metadata": {
+    "clock": "monotonic_ns",
+    "scheduler": "gcd-task-dispatch",
+    "build_mode": "release"
+  },
+  "scenario": {
+    "force_frame": "42 01 00 00 01 00 01 01",
+    "read_frame": "43 01 00 01 00 01",
+    "unforce_frame": "42 01 00 00 00 00 00"
+  },
+  "expected": {
+    "forced_output": true,
+    "released_output": true
+  },
+  "volatile_fields": []
+}

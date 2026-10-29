@@ -1,0 +1,39 @@
+{
+  "name": "program-archive",
+  "baseline_commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "metadata": {
+    "os": "linux",
+    "architecture": "x86_64",
+    "clock": "none",
+    "scheduler": "none",
+    "build_mode": "release"
+  },
+  "cases": [
+    {
+      "name": "flat",
+      "compression": "stored",
+      "entries": [["generated.cpp", "source"], ["generated.hpp", "header"]]
+    },
+    {
+      "name": "single-root-and-macos-junk",
+      "compression": "deflated",
+      "entries": [["project/generated.cpp", "source"], ["project/generated.hpp", "header"], ["__MACOSX/project/._generated.cpp", "junk"], ["project/.DS_Store", "junk"]]
+    },
+    {
+      "name": "multiple-roots",
+      "compression": "bzip2",
+      "entries": [["generated.cpp", "source"], ["conf/modbus.json", "{}"]]
+    },
+    {
+      "name": "windows-separators",
+      "compression": "lzma",
+      "entries": [["project\\generated.cpp", "source"], ["project\\generated.hpp", "header"]]
+    },
+    {
+      "name": "mixed-separators",
+      "compression": "stored",
+      "entries": [["project/generated.cpp", "source"], ["project\\generated.hpp", "header"]]
+    }
+  ],
+  "volatile_fields": []
+}

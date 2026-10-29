@@ -1,0 +1,74 @@
+name: Port work item
+description: Port one pinned OpenPLC behavior with differential evidence
+title: ""
+labels: [parity]
+body:
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: One observable OpenPLC behavior this ticket will reproduce.
+    validations:
+      required: true
+  - type: textarea
+    id: upstream
+    attributes:
+      label: Pinned upstream evidence
+      description: Commit, files, symbols, endpoints, fixtures, and expected trace.
+    validations:
+      required: true
+  - type: textarea
+    id: refactor
+    attributes:
+      label: Existing code being refactored
+      description: Exact C, C++, Python, script, test, and public boundary replaced by Rust.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and exclusions
+      description: What changes and what explicitly does not change.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: Runnable differential checks with exact results or measured tolerance.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies
+      description: Blocking issues, new crates, licenses, and alternatives considered. Write none when empty.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and deployment boundary
+      description: Trust boundaries, unsafe or FFI impact, I/O effects, and why field control remains disabled.
+    validations:
+      required: true
+  - type: textarea
+    id: production
+    attributes:
+      label: Production-readiness evidence
+      description: Required load, recovery, security, observability, upgrade, rollback, and operational checks.
+    validations:
+      required: true
+  - type: checkboxes
+    id: ready
+    attributes:
+      label: Definition of Ready
+      options:
+        - label: Upstream evidence is pinned and inspectable.
+          required: true
+        - label: Acceptance checks are unambiguous and runnable.
+          required: true
+        - label: Dependencies and safety impact are identified.
+          required: true
+        - label: Production-readiness checks are explicit and runnable.
+          required: true

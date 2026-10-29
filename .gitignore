@@ -1,0 +1,13 @@
+/target/
+.DS_Store
+artifacts/
+.env
+.env.*
+!.env.example
+*.p12
+*.pfx
+*.key
+*.pem
+*.log
+
+!crates/openplc-editor-macos/resources/libraries/*.stlib

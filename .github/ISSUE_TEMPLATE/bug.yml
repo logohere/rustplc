@@ -1,0 +1,35 @@
+name: Bug report
+description: A reproducible failure in existing behavior
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Read CONTRIBUTING.md first. Search existing issues. Report vulnerabilities privately through SECURITY.md; do not include private projects, credentials or machine profiles.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and impact
+      description: Expected behavior, actual behavior, and what breaks for users.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Versions and environment
+      description: RustPLC commit/version, upstream baseline, OS/architecture and compiler versions. No local usernames or home paths.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Synthetic source, exact commands, and sanitized results. No hardware or external network writes.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: Runnable checks that demonstrate a fix.
+    validations:
+      required: true

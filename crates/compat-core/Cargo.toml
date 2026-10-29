@@ -1,0 +1,15 @@
+[package]
+name = "open-rust-plc-compat-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+ctrlc = { version = "3.5.2", features = ["termination"] }
+zip = { version = "=8.0.0", default-features = false, features = ["bzip2", "deflate-flate2-zlib-rs", "lzma"] }
+
+[build-dependencies]
+cc = "1"

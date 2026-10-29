@@ -1,0 +1,9 @@
+# Component licenses
+
+No single license applies to every file in this repository.
+
+- Runtime/compatibility code: MIT where applicable; see LICENSES/MIT.txt and THIRD_PARTY_NOTICES.md.
+- Rust compiler and editor: GPL-3.0-only; see LICENSES/GPL-3.0.txt and each crate manifest.
+- Vendored code and bundled libraries: their retained notices, license texts, and exceptions apply. See THIRD_PARTY_NOTICES.md and LICENSES/.
+
+The MIT terms do not relicense the GPL-derived compiler/editor or third-party components.

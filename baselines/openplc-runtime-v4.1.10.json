@@ -1,0 +1,1278 @@
+{
+  "repository": "https://github.com/Autonomy-Logic/openplc-runtime",
+  "version": "v4.1.10",
+  "commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "generated_program_toolchain": {
+    "editor": {
+      "repository": "https://github.com/Autonomy-Logic/openplc-editor",
+      "commit": "32e324c7c8278cbf95e8b519fb6b935312ffcfc4",
+      "manifest": "binary-versions.json"
+    },
+    "strucpp": {
+      "repository": "https://github.com/Autonomy-Logic/STruCpp",
+      "tag": "v0.6.2",
+      "commit": "e48bc707dcce00572c07b07160a4437a5e5aed45",
+      "program_base_header": "src/runtime/include/iec_std_lib.hpp"
+    }
+  },
+  "license": "MIT",
+  "scope_roots": [
+    "core/src",
+    "core/strucpp_runtime",
+    "webserver",
+    "scripts",
+    "windows"
+  ],
+  "root_files": [
+    "CMakeLists.txt",
+    "LICENSE",
+    "start_openplc.sh",
+    "plugins_default.conf",
+    "project.yml",
+    "VERSION"
+  ],
+  "gitlinks": [
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/libs/soem",
+      "commit": "a7c74cea13786426929ae71e94195fa91c4b9faf"
+    }
+  ],
+  "files": [
+    {
+      "path": "CMakeLists.txt",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/CMakeLists.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "LICENSE",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/LICENSE",
+      "status": "not-started"
+    },
+    {
+      "path": "VERSION",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/VERSION",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/CMakeLists.txt",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/core/src/CMakeLists.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/README.md",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/README.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugin_config.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugin_config.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugin_driver.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_driver.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugin_driver.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_driver.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugin_types.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/cjson/cJSON.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/cJSON.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/cjson/cJSON.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/cJSON.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/CMakeLists.txt",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/ethercat/CMakeLists.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_config.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_config.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_config.json",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/ethercat/ethercat_config.json",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_iface_state.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_iface_state.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_iface_state.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_iface_state.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_io.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_io.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_io.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_io.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_master.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_master.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_master.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_master.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_plugin.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_plugin.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_proc.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_proc.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/ethercat/ethercat_proc.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/ethercat_proc.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/examples/Makefile",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/examples/Makefile",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/examples/test_plugin.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/examples/test_plugin_loader.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_plugin_loader.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/plugin_logger.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_logger.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/plugin_logger.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_logger.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/CMakeLists.txt",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/s7comm/CMakeLists.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/docs/IMPLEMENTATION_PLAN.md",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/s7comm/docs/IMPLEMENTATION_PLAN.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/docs/JSON_SCHEMA.md",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/s7comm/docs/JSON_SCHEMA.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/docs/USER_GUIDE.md",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/native/s7comm/docs/USER_GUIDE.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/s7comm_config.c",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7comm_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/s7comm_config.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7comm_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/s7comm_plugin.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7comm_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/s7comm_plugin.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7comm_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_client.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_client.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_client.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_client.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_firmware.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_firmware.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_isotcp.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_isotcp.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_isotcp.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_isotcp.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_micro_client.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_micro_client.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_micro_client.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_micro_client.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_partner.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_partner.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_partner.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_partner.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_peer.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_peer.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_peer.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_peer.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_server.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_server.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_server.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_server.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_text.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_text.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_text.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_text.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/core/s7_types.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/s7_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/lib/snap7_libmain.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap7_libmain.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/lib/snap7_libmain.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap7_libmain.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_msgsock.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_msgsock.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_msgsock.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_msgsock.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_platform.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_platform.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_sysutils.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_sysutils.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_sysutils.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_sysutils.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_tcpsrvr.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_tcpsrvr.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_tcpsrvr.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_tcpsrvr.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_threads.cpp",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_threads.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/snap_threads.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/snap_threads.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/sol_threads.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/sol_threads.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/unix_threads.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/unix_threads.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/native/s7comm/snap7/sys/win_threads.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/win_threads.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/examples/buffer_access_example.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/buffer_access_example.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/examples/example_python_plugin.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/example_python_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/modbus_master_connection.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/modbus_master_connection.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/modbus_master_memory.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/modbus_master_memory.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/modbus_master_plugin.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/modbus_master_plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/modbus_master_types.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/modbus_master_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/modbus_master_utils.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/modbus_master_utils.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/requirements.txt",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/modbus_master/requirements.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_master/test/script_slave.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/script_slave.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_slave/conftest.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/conftest.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_slave/requirements.txt",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/modbus_slave/requirements.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_slave/simple_modbus.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/simple_modbus.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_slave/test_inputs.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_inputs.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_slave/test_modbus_slave.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_modbus_slave.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/modbus_slave/test_openplc_input_registers_datablock.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_openplc_input_registers_datablock.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/SUBSCRIPTION_IMPLEMENTATION.md",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/opcua/SUBSCRIPTION_IMPLEMENTATION.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/__init__.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/__init__.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/address_space.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/address_space.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/callbacks.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/callbacks.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/config.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_config_template.json",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/opcua/opcua_config_template.json",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_endpoints_config.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_endpoints_config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_logging.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_logging.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_memory.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_memory.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_security.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_security.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_types.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/opcua_utils.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_utils.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/plugin.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/requirements.txt",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/opcua/requirements.txt",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/server.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/server.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/synchronization.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/synchronization.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/test_configs/opcua_config_def_nested_structures.json",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/opcua/test_configs/opcua_config_def_nested_structures.json",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/test_configs/opcua_config_def_simple_var.json",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/opcua/test_configs/opcua_config_def_simple_var.json",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/tests/test_server_standalone.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_server_standalone.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/tests/test_subscription_client.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_subscription_client.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/opcua/user_manager.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/user_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/API_SPECIFICATION.md",
+      "category": "io-drivers",
+      "rust_target": "tests/fixtures/upstream/core/src/drivers/plugins/python/shared/API_SPECIFICATION.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/__init__.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/__init__.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/batch_processor.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/batch_processor.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/buffer_accessor.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/buffer_accessor.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/buffer_types.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/buffer_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/buffer_validator.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/buffer_validator.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/capsule_extraction.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/capsule_extraction.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/component_interfaces.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/component_interfaces.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/config_handler.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/config_handler.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/iec_types.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/iec_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/mutex_manager.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/mutex_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_config_decode/__init__.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/__init__.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_config_decode/modbus_master_config_model.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/modbus_master_config_model.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_config_decode/opcua_config_model.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/opcua_config_model.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_config_decode/plugin_config_contact.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_config_contact.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_config_decode/test_modbus_master_config_model.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_modbus_master_config_model.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_config_decode/test_plugin_config_models.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/test_plugin_config_models.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_logger.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_logger.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_runtime_args.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_runtime_args.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/plugin_structure_validator.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/plugin_structure_validator.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/safe_buffer_access_refactored.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/safe_buffer_access_refactored.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/plugins/python/shared/safe_logging_access.py",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/safe_logging_access.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/drivers/python_plugin_bridge.h",
+      "category": "io-drivers",
+      "rust_target": "crates/io-drivers/src/python_plugin_bridge.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/lib/iec_types.h",
+      "category": "program-abi",
+      "rust_target": "crates/program-abi/src/iec_types.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/lib/strucpp_abi.hpp",
+      "category": "program-abi",
+      "rust_target": "crates/program-abi/src/strucpp_abi.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/client_tcp_udp.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/client_tcp_udp.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/debug_handler.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/debug_handler.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/debug_handler.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/debug_handler.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/debug_write_journal.cpp",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/debug_write_journal.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/debug_write_journal.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/debug_write_journal.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/image_tables.cpp",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/image_tables.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/image_tables.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/image_tables.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/include/iec_python.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/iec_python.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/journal_buffer.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/journal_buffer.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/journal_buffer.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/journal_buffer.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/located_globals.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/located_globals.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/located_globals.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/located_globals.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_io_cycle.cpp",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_io_cycle.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_io_cycle.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_io_cycle.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_main.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_main.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_state_manager.cpp",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_state_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_state_manager.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_state_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_switch.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_switch.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plc_switch.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plc_switch.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plcapp_manager.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plcapp_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/plcapp_manager.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/plcapp_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/python_loader.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/python_loader.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/scan_cycle_manager.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/scan_cycle_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/scan_cycle_manager.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/scan_cycle_manager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/unix_socket.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/unix_socket.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/unix_socket.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/unix_socket.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/utils/log.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/log.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/utils/log.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/log.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/utils/utils.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/utils.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/utils/utils.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/utils.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/utils/watchdog.c",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/watchdog.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/src/plc_app/utils/watchdog.h",
+      "category": "runtime-core",
+      "rust_target": "crates/runtime-core/src/watchdog.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "core/strucpp_runtime/README.md",
+      "category": "program-abi",
+      "rust_target": "tests/fixtures/upstream/core/strucpp_runtime/README.md",
+      "status": "not-started"
+    },
+    {
+      "path": "core/strucpp_runtime/runtime_v4_entry.cpp",
+      "category": "program-abi",
+      "rust_target": "crates/program-abi/src/runtime_v4_entry.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "plugins_default.conf",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/plugins_default.conf",
+      "status": "not-started"
+    },
+    {
+      "path": "project.yml",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/project.yml",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/Makefile.strucpp",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/build-docker-image-dev.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/build-docker-image.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/compile-clean.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/compile.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/exec.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/generate-gluevars.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/manage_plugin_venvs.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/run-image-dev.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/run-image.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "scripts/run-pytest.sh",
+      "category": "build-tooling",
+      "rust_target": "tools/",
+      "status": "not-started"
+    },
+    {
+      "path": "start_openplc.sh",
+      "category": "project-infra",
+      "rust_target": "tests/fixtures/upstream/start_openplc.sh",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/DEBUG_WEBSOCKET.md",
+      "category": "control-api",
+      "rust_target": "tests/fixtures/upstream/webserver/DEBUG_WEBSOCKET.md",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/__init__.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/__init__.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/app.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/app.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/config.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/credentials.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/credentials.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/debug_websocket.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/debug_websocket.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/discovery/__init__.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/__init__.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/discovery/discovery_routes.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/discovery_routes.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/discovery/ethercat_discovery.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/ethercat_discovery.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/discovery/network_discovery.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/network_discovery.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/logger/__init__.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/__init__.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/logger/bufferhandler.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/bufferhandler.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/logger/config.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/config.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/logger/formatter.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/formatter.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/logger/logger_module_documentation.md",
+      "category": "control-api",
+      "rust_target": "tests/fixtures/upstream/webserver/logger/logger_module_documentation.md",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/logger/parser.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/parser.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/plcapp_management.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/plcapp_management.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/plugin_config_model.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/plugin_config_model.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/restapi.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/restapi.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/runtimemanager.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/runtimemanager.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/unixclient.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/unixclient.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/unixserver.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/unixserver.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "webserver/version.py",
+      "category": "control-api",
+      "rust_target": "crates/control-api/src/version.rs",
+      "status": "not-started"
+    },
+    {
+      "path": "windows/README.md",
+      "category": "packaging-windows",
+      "rust_target": "packaging/windows/",
+      "status": "not-started"
+    },
+    {
+      "path": "windows/StartOpenPLC.bat",
+      "category": "packaging-windows",
+      "rust_target": "packaging/windows/",
+      "status": "not-started"
+    },
+    {
+      "path": "windows/openplc.ico",
+      "category": "packaging-windows",
+      "rust_target": "packaging/windows/",
+      "status": "not-started"
+    },
+    {
+      "path": "windows/provision-msys2.sh",
+      "category": "packaging-windows",
+      "rust_target": "packaging/windows/",
+      "status": "not-started"
+    },
+    {
+      "path": "windows/setup.iss",
+      "category": "packaging-windows",
+      "rust_target": "packaging/windows/",
+      "status": "not-started"
+    }
+  ]
+}

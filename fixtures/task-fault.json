@@ -1,0 +1,14 @@
+{
+  "name": "task-fault-isolation",
+  "baseline_commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "metadata": {
+    "clock": "monotonic_ns",
+    "scheduler": "gcd-task-dispatch",
+    "build_mode": "release"
+  },
+  "scenario": {
+    "fault_task": "FAULT_TASK",
+    "healthy_task": "HEALTHY_TASK"
+  },
+  "volatile_fields": []
+}

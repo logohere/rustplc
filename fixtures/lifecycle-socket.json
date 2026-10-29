@@ -1,0 +1,17 @@
+{
+  "name": "lifecycle-socket",
+  "baseline_commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "metadata": {
+    "clock": "monotonic_ns",
+    "scheduler": "predicate-settled-command-sequence",
+    "build_mode": "release"
+  },
+  "events": [
+    {"command": "status"},
+    {"command": "start", "settle": "RUNNING"},
+    {"command": "status"},
+    {"command": "stop", "settle": "STOPPED"},
+    {"command": "status"}
+  ],
+  "volatile_fields": []
+}

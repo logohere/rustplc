@@ -1,0 +1,6 @@
+crates/compiler-core/runtime/** linguist-vendored -whitespace
+crates/compiler-core/stdlib/** linguist-vendored -whitespace
+crates/openplc-editor-macos/assets/monaco/** linguist-vendored -whitespace
+crates/openplc-editor-macos/assets/openplc.css linguist-generated -whitespace
+crates/openplc-editor-macos/resources/** linguist-vendored -whitespace
+LICENSES/** -whitespace

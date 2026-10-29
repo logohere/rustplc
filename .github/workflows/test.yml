@@ -1,0 +1,243 @@
+name: test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: macOS primary development checks
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo check --target aarch64-apple-darwin
+      - run: python3 -m py_compile scripts/*.py
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+      - run: cargo test --workspace
+  generated-program-abi:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/openplc-runtime
+          ref: bf82b1b661fd95c9899969f629d692b77b4e1454
+          path: upstream
+          fetch-depth: 1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/STruCpp
+          ref: e48bc707dcce00572c07b07160a4437a5e5aed45
+          path: strucpp
+          fetch-depth: 1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: strucpp/package-lock.json
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+      - run: npm ci --ignore-scripts && npm run build:tsc-only
+        working-directory: strucpp
+      - run: node scripts/generate_abi_fixture.mjs strucpp abi-build
+      - name: Build generated program library
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == macOS ]]; then
+            library=libplc_fixture.dylib
+          else
+            library=libplc_fixture.so
+          fi
+          python3 -m zipfile -c abi-build.zip abi-build
+          cargo run --release --example program_archive_trace -- abi-build.zip staged-abi
+          cargo run --release --bin rustplc-build -- \
+            --generated staged-abi \
+            --runtime-include strucpp/src/runtime/include \
+            --runtime-shim upstream/core/strucpp_runtime/runtime_v4_entry.cpp \
+            --reset-shim crates/compat-core/native/strucpp_program_reset.cpp \
+            --output "abi-build/$library"
+          first_hash="$(shasum -a 256 "abi-build/$library" | awk '{print $1}')"
+          cargo run --release --bin rustplc-build -- \
+            --generated staged-abi \
+            --runtime-include strucpp/src/runtime/include \
+            --runtime-shim upstream/core/strucpp_runtime/runtime_v4_entry.cpp \
+            --reset-shim crates/compat-core/native/strucpp_program_reset.cpp \
+            --output "abi-build/$library"
+          second_hash="$(shasum -a 256 "abi-build/$library" | awk '{print $1}')"
+          test "$first_hash" = "$second_hash"
+          echo "OPEN_RUST_PLC_PROGRAM_SHA256=$second_hash"
+          echo "OPEN_RUST_PLC_ABI_FIXTURE=$PWD/abi-build/$library" >> "$GITHUB_ENV"
+      - run: cargo test --test generated_program -- --ignored
+      - run: cargo build --release --bin rustplc
+      - name: Smoke runnable RustPLC app
+        run: >-
+          python3 scripts/rustplc_app_smoke.py
+          --binary target/release/rustplc
+          --library "$OPEN_RUST_PLC_ABI_FIXTURE"
+  linux-lifecycle-differential:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/openplc-runtime
+          ref: bf82b1b661fd95c9899969f629d692b77b4e1454
+          path: upstream
+          fetch-depth: 1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/STruCpp
+          ref: e48bc707dcce00572c07b07160a4437a5e5aed45
+          path: strucpp
+          fetch-depth: 1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: strucpp/package-lock.json
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+      - run: sudo apt-get update
+      - run: sudo apt-get install -y cmake g++ pkg-config python3-dev
+      - run: |
+          npm ci --ignore-scripts
+          npm run build:tsc-only
+        working-directory: strucpp
+      - run: cmake -S upstream -B upstream/build -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build upstream/build --parallel 2
+      - run: node scripts/generate_abi_fixture.mjs strucpp abi-build
+      - name: Build isolated generated PLC fixture
+        run: >-
+          c++ -std=c++17 -O2 -fPIC -DSTRUCPP_THREADED
+          -Iabi-build -Istrucpp/src/runtime/include -shared
+          abi-build/generated.cpp abi-build/generated_debug.cpp
+          upstream/core/strucpp_runtime/runtime_v4_entry.cpp
+          crates/compat-core/native/strucpp_program_reset.cpp
+          -o upstream/build/libplc_fixture.so -pthread
+      - run: cargo build --release --example lifecycle_trace_server
+      - run: cargo build --release --example task_fault_trace
+      - run: cargo build --release --example generated_io_trace
+      - run: cargo build --release --example generated_stats_trace
+      - run: cargo build --release --example program_archive_trace
+      - name: Prepare isolated runtime paths
+        run: |
+          : > upstream/plugins.conf
+          sudo mkdir -p /run/runtime
+          sudo chown "$USER" /run/runtime
+      - name: Compare pinned OpenPLC and Rust lifecycle traces
+        run: >-
+          python3 scripts/diff_trace.py fixtures/lifecycle-socket.json
+          --upstream-cmd
+          'python3 scripts/openplc_process_trace.py {fixture}
+          --runtime upstream/build/plc_main --cwd upstream'
+          --rust-cmd
+          'python3 scripts/rust_lifecycle_trace.py {fixture}
+          --server target/release/examples/lifecycle_trace_server
+          --library upstream/build/libplc_fixture.so'
+      - name: Compare pinned OpenPLC and Rust generated debug I/O
+        run: >-
+          python3 scripts/diff_trace.py fixtures/generated-debug-io.json
+          --upstream-cmd
+          'python3 scripts/generated_debug_io_trace.py {fixture}
+          --runtime upstream/build/plc_main --cwd upstream'
+          --rust-cmd
+          'python3 scripts/generated_debug_io_trace.py {fixture}
+          --executable target/release/examples/generated_io_trace
+          --library upstream/build/libplc_fixture.so'
+      - name: Compare pinned OpenPLC and Rust generated task statistics
+        run: >-
+          python3 scripts/diff_trace.py fixtures/generated-stats.json
+          --upstream-cmd
+          'python3 scripts/generated_stats_trace.py {fixture}
+          --runtime upstream/build/plc_main --cwd upstream'
+          --rust-cmd
+          'python3 scripts/generated_stats_trace.py {fixture}
+          --executable target/release/examples/generated_stats_trace
+          --library upstream/build/libplc_fixture.so'
+      - name: Build isolated task-fault fixture
+        run: |
+          rm upstream/build/libplc_fixture.so
+          node scripts/generate_abi_fixture.mjs strucpp fault-build fixtures/abi/task-fault.st
+          c++ -std=c++17 -O2 -fPIC -DSTRUCPP_THREADED \
+            -Ifault-build -Istrucpp/src/runtime/include -shared \
+            fault-build/generated.cpp fault-build/generated_debug.cpp \
+            upstream/core/strucpp_runtime/runtime_v4_entry.cpp \
+            crates/compat-core/native/strucpp_program_reset.cpp \
+            -o upstream/build/libplc_fault.so -pthread
+      - name: Compare pinned OpenPLC and Rust task-fault traces
+        run: >-
+          python3 scripts/diff_trace.py fixtures/task-fault.json
+          --upstream-cmd
+          'python3 scripts/openplc_task_fault_trace.py {fixture}
+          --runtime upstream/build/plc_main --cwd upstream'
+          --rust-cmd
+          'python3 scripts/rust_task_fault_trace.py {fixture}
+          --executable target/release/examples/task_fault_trace'
+      - name: Compare pinned OpenPLC and Rust program archives
+        run: >-
+          python3 scripts/diff_trace.py fixtures/program-archive.json
+          --upstream-cmd
+          'python3 scripts/program_archive_trace.py {fixture} --upstream upstream'
+          --rust-cmd
+          'python3 scripts/program_archive_trace.py {fixture}
+          --executable target/release/examples/program_archive_trace'
+  baseline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/openplc-runtime
+          ref: bf82b1b661fd95c9899969f629d692b77b4e1454
+          path: upstream
+          fetch-depth: 1
+          submodules: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/openplc-editor
+          ref: 32e324c7c8278cbf95e8b519fb6b935312ffcfc4
+          path: openplc-editor
+          fetch-depth: 1
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          repository: Autonomy-Logic/STruCpp
+          ref: e48bc707dcce00572c07b07160a4437a5e5aed45
+          path: strucpp
+          fetch-depth: 1
+      - run: >-
+          python3 scripts/verify_upstream_baseline.py
+          --source upstream
+          --editor-source openplc-editor
+          --strucpp-source strucpp

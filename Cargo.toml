@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+members = ["crates/compat-core", "crates/compiler-core", "crates/openplc-editor-macos"]
+
+[workspace.package]
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/logohere/rustplc"

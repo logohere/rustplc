@@ -1,0 +1,17 @@
+{
+  "name": "lifecycle-basic",
+  "baseline_commit": "bf82b1b661fd95c9899969f629d692b77b4e1454",
+  "metadata": {
+    "clock": "monotonic_ns",
+    "scheduler": "fixture",
+    "build_mode": "debug"
+  },
+  "events": [
+    {"command": "status"},
+    {"command": "start"},
+    {"command": "status"},
+    {"command": "stop"},
+    {"command": "status"}
+  ],
+  "volatile_fields": []
+}

@@ -1,0 +1,20 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "SHA-256 values verified against vendored bytes by check_public_source.py"
+condition = "AND"
+regexTarget = "secret"
+paths = ['''^docs/vendored-sha256\.json$''']
+regexes = ['''^[0-9a-f]{64}$''']
+
+[[allowlists]]
+description = "Non-publishable build and Git internals"
+paths = ['''(^|/)(target|artifacts|\.git)/''']
+
+[[allowlists]]
+description = "Reviewed TypeScript parser expression in vendored Monaco 0.54.0, not a credential"
+condition = "AND"
+regexTarget = "secret"
+paths = ['''^crates/openplc-editor-macos/assets/monaco/vs/assets/ts\.worker-C4E4vgbE\.js$''']
+regexes = ['''^k=y\.parent\.kind$''']
