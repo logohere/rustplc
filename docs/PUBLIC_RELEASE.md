@@ -4,6 +4,7 @@
 
 - Use only reviewed source from this repository. Do not import private history, issue threads, PR bodies, local profiles, build output or signing material.
 - Run README checks, Gitleaks, and applicable differential, native, rendered-UI and manual checks. Record skipped checks honestly.
+- Check tracked source and complete reachable history, including files later deleted in a PR. Ignored local build caches are not publication inputs; explicitly tracked build/private artifacts are rejected. Source archives are checked without relying on Git ignores.
 - Verify vendored hashes and preserve all component notices. Legacy OSCAT redistribution remains subject to its own free-of-charge and attribution terms.
 - Source publication is not a binary release, notarization, hardware qualification or safety certification.
 

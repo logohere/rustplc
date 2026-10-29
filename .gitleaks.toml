@@ -9,8 +9,8 @@ paths = ['''^docs/vendored-sha256\.json$''']
 regexes = ['''^[0-9a-f]{64}$''']
 
 [[allowlists]]
-description = "Non-publishable build and Git internals"
-paths = ['''(^|/)(target|artifacts|\.git)/''']
+description = "Git internals, never a tracked publication path"
+paths = ['''(^|/)\.git/''']
 
 [[allowlists]]
 description = "Reviewed TypeScript parser expression in vendored Monaco 0.54.0, not a credential"

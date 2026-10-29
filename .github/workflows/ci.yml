@@ -46,7 +46,10 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+          fetch-depth: 0
+      - run: python3 -m unittest discover -s scripts/tests -v
       - run: python3 scripts/check_public_source.py
+      - run: python3 scripts/check_public_history.py
       - name: Verify pinned secret scanner and scan source
         shell: bash
         run: |
@@ -58,3 +61,4 @@ jobs:
           echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  $tool_dir/gitleaks.tar.gz" | sha256sum --check --status
           tar -xzf "$tool_dir/gitleaks.tar.gz" -C "$tool_dir" gitleaks
           "$tool_dir/gitleaks" dir . --redact --no-banner
+          "$tool_dir/gitleaks" git . --log-opts=--all --redact --no-banner
