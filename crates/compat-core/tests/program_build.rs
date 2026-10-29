@@ -1,15 +1,23 @@
 use std::fs;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use open_rust_plc_compat_core::program_build::{build, BuildError, BuildSpec};
 
 fn test_root() -> PathBuf {
+    static NEXT_ID: AtomicU64 = AtomicU64::new(0);
     let stamp = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap()
         .as_nanos();
-    std::env::temp_dir().join(format!("rustplc-build-{stamp}"))
+    let id = NEXT_ID.fetch_add(1, Ordering::Relaxed);
+    let root = std::env::temp_dir().join(format!(
+        "rustplc-build-{}-{stamp}-{id}",
+        std::process::id()
+    ));
+    fs::create_dir(&root).unwrap();
+    root
 }
 
 #[test]
