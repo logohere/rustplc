@@ -36,9 +36,9 @@ source at `assets/entitlements.mac.plist`.
 process. It is distributed under MIT or Apache-2.0 terms. Source and license:
 https://github.com/Detegr/rust-ctrlc/tree/v3.5.2
 
-`zip` 8.0.0 provides bounded ZIP parsing and extraction support for uploaded
+`zip` 9.0.5 provides bounded ZIP parsing and extraction support for uploaded
 program archives. It is distributed under MIT terms. Source and license:
-https://github.com/zip-rs/zip2/tree/v8.0.0
+https://github.com/zip-rs/zip2/tree/v9.0.5
 
 `crates/compat-core/native/strucpp_bridge.cpp` adapts type declarations from
 OpenPLC Runtime v4 `core/src/lib/strucpp_abi.hpp` at commit
