@@ -16,6 +16,7 @@ jobs:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
         with:
+          toolchain: 1.96.0
           components: rustfmt, clippy
       - run: cargo fmt --all --check
       - run: cargo clippy --workspace --all-targets -- -D warnings
@@ -31,6 +32,8 @@ jobs:
         with:
           persist-credentials: false
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: 1.96.0
       - run: cargo test --workspace
   generated-program-abi:
     strategy:
@@ -61,6 +64,8 @@ jobs:
           cache: npm
           cache-dependency-path: strucpp/package-lock.json
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: 1.96.0
       - run: npm ci --ignore-scripts && npm run build:tsc-only
         working-directory: strucpp
       - run: node scripts/generate_abi_fixture.mjs strucpp abi-build
@@ -124,6 +129,8 @@ jobs:
           cache: npm
           cache-dependency-path: strucpp/package-lock.json
       - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: 1.96.0
       - run: sudo apt-get update
       - run: sudo apt-get install -y cmake g++ pkg-config python3-dev
       - run: |
