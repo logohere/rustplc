@@ -1,5 +1,11 @@
 # Contributing
 
+## Where to contribute
+
+RustPLC is maintained separately from OpenPLC and STruC++. Open RustPLC issues and PRs here; the pinned upstreams define comparison targets, not automatic synchronization or shared maintainership. A RustPLC-only failure is not evidence of an upstream bug.
+
+For a proposed upstream fix, reproduce it against that upstream, read its current contribution/licensing rules, and prepare the exact issue or PR for the owner's manual review before an agent posts anything there. RustPLC's contribution policy does not replace another project's policy or CLA.
+
 ## Research and issues first
 
 Read AGENTS.md, SECURITY.md, docs/ENGINEERING_RULES.md, docs/UPSTREAM_BASELINE.md, docs/REVIEW_GUIDELINES.md, and the affected implementation and tests before editing.
