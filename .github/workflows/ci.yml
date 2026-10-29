@@ -15,6 +15,32 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  portable:
+    name: Core/compiler (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: 1.96.0
+      - run: cargo test --locked -p open-rust-plc-compat-core -p open-rust-plc-compiler --all-targets
+  portable-gate:
+    name: Portable checks
+    runs-on: ubuntu-latest
+    needs: portable
+    if: always()
+    steps:
+      - name: Require every portable matrix job
+        run: test "$PORTABLE_RESULT" = success
+        env:
+          PORTABLE_RESULT: ${{ needs.portable.result }}
   rust:
     name: Rust checks
     runs-on: macos-latest

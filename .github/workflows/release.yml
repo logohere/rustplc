@@ -1,0 +1,133 @@
+name: Release pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing owner-created annotated version tag on main
+        required: true
+        type: string
+      release_issue:
+        description: Release issue with candidate identity and acceptance evidence
+        required: true
+        type: string
+      validate_only:
+        description: Validate eligibility without building or distributing an artifact
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  issues: read
+  checks: read
+
+concurrency:
+  group: rustplc-release
+  cancel-in-progress: false
+
+jobs:
+  eligibility:
+    name: Release eligibility
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      sha: ${{ steps.gate.outputs.sha }}
+      tag: ${{ steps.gate.outputs.tag }}
+      issue: ${{ steps.gate.outputs.issue }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          ref: ${{ github.sha }}
+      - id: gate
+        run: python3 scripts/check_release.py --tag "$RELEASE_TAG" --issue "$RELEASE_ISSUE"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ inputs.tag }}
+          RELEASE_ISSUE: ${{ inputs.release_issue }}
+  candidate:
+    name: Build reviewed macOS candidate
+    needs: eligibility
+    if: ${{ !inputs.validate_only }}
+    runs-on: macos-latest
+    timeout-minutes: 30
+    environment: release-candidate
+    outputs:
+      artifact: ${{ steps.package.outputs.artifact }}
+      sha256: ${{ steps.package.outputs.sha256 }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          ref: ${{ needs.eligibility.outputs.sha }}
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: 1.96.0
+      - run: ./scripts/build_macos_app.sh
+      - run: python3 scripts/check_macos_bundle.py
+      - run: python3 scripts/audit_release_artifacts.py 'target/macos/RustPLC Editor.app'
+      - id: package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          archive="RustPLC-${RELEASE_TAG}-macos-$(uname -m).zip"
+          ditto -c -k --sequesterRsrc --keepParent 'target/macos/RustPLC Editor.app' "dist/$archive"
+          cd dist
+          shasum -a 256 "$archive" > SHA256SUMS
+          digest="$(shasum -a 256 "$archive" | awk '{print $1}')"
+          echo "sha256=$digest" >> "$GITHUB_OUTPUT"
+          echo "artifact=rustplc-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+        env:
+          RELEASE_TAG: ${{ needs.eligibility.outputs.tag }}
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: ${{ steps.package.outputs.artifact }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 7
+  publish:
+    name: Publish owner-approved candidate
+    needs: [eligibility, candidate]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: production
+    permissions:
+      contents: write
+      issues: write
+      checks: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+          ref: ${{ needs.eligibility.outputs.sha }}
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: ${{ needs.candidate.outputs.artifact }}
+          path: dist
+      - name: Revalidate exact source, acceptance and artifact
+        run: |
+          set -euo pipefail
+          python3 scripts/check_release.py --tag "$RELEASE_TAG" --issue "$RELEASE_ISSUE" --artifact-sha "$ARTIFACT_SHA"
+          test "$(sha256sum dist/*.zip | awk '{print $1}')" = "$ARTIFACT_SHA"
+          cd dist
+          sha256sum --check --strict SHA256SUMS
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.eligibility.outputs.tag }}
+          RELEASE_ISSUE: ${{ needs.eligibility.outputs.issue }}
+          ARTIFACT_SHA: ${{ needs.candidate.outputs.sha256 }}
+      - name: Publish existing immutable tag and close the release issue
+        run: |
+          set -euo pipefail
+          printf 'Source revision: %s\nReview: https://github.com/logohere/rustplc/issues/%s\nArtifact SHA-256: %s\n\nmacOS candidate only. See SECURITY.md and the review issue for known risks and signing/platform scope.\n' "$GITHUB_SHA" "$RELEASE_ISSUE" "$ARTIFACT_SHA" > release-notes.md
+          release_flags=()
+          if [[ "$RELEASE_TAG" == *-* ]]; then release_flags+=(--prerelease); fi
+          gh release create "$RELEASE_TAG" --verify-tag --draft --title "RustPLC $RELEASE_TAG" --notes-file release-notes.md "${release_flags[@]}" dist/*
+          gh release edit "$RELEASE_TAG" --draft=false
+          gh issue close "$RELEASE_ISSUE" --reason completed --comment "Published https://github.com/logohere/rustplc/releases/tag/$RELEASE_TAG from $GITHUB_SHA. Verified candidate SHA-256: $ARTIFACT_SHA. Production environment approval was required."
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ needs.eligibility.outputs.tag }}
+          RELEASE_ISSUE: ${{ needs.eligibility.outputs.issue }}
+          ARTIFACT_SHA: ${{ needs.candidate.outputs.sha256 }}

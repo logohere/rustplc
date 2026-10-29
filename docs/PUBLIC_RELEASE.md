@@ -12,16 +12,18 @@
 
 After the owner approves publication, verify these settings through the GitHub API:
 
-- `main` and `development`: PR-only changes, required GitHub Actions checks `Rust checks`, `Public source checks`, and `Dependency audit`, up-to-date branches, resolved conversations, linear history, no deletion or force-push. These gates have no bypass actors.
+- `main` and `development`: PR-only changes, required GitHub Actions checks `Rust checks`, `Public source checks`, `Dependency audit`, `Process checks`, and `Portable checks`, up-to-date branches, resolved conversations, no deletion or force-push. These gates have no bypass actors. `main` remains linear; development allows the reviewed release-ancestry merge described in DELIVERY.md.
 - A separate review ruleset requires fresh owner/code-owner approval; only the repository owner can bypass that approval on a PR. That exception does not bypass the mandatory check ruleset.
 - `v*` tags: owner-only creation and separate no-bypass update/deletion restrictions.
 - Actions: read-only default token, no PR-approval authority, full-SHA requirement, only the explicit action allowlist, all outside-contributor runs need approval.
-- Auto-merge off, squash-only merges, obsolete branches deleted, wiki/projects/discussions off, no unneeded collaborators, deploy keys or publishing secrets.
+- Auto-merge off, normal/promotion PRs squash-merged, release-ancestry synchronization merge-reviewed, obsolete branches deleted, wiki/projects/discussions off, no unneeded collaborators, deploy keys or publishing secrets.
 - Private vulnerability reporting, dependency alerts, secret scanning and secret push protection enabled where GitHub supports them.
 
 Ruleset requests are in `.github/rulesets/`. They are configuration inputs, not proof of enforcement. Private GitHub Free repositories cannot enforce these rulesets; apply and read them back after public visibility. Do not upgrade a paid plan as a substitute without owner authorization.
 
 The initial repository import creates `development` from a clean, source-only commit before branch rules exist. Later changes require the normal issue/branch/PR process. `main` is reserved for a separately reviewed release promotion; bootstrap does not merge a release into it.
+
+DELIVERY.md defines the one-time reviewed-source main bootstrap, main-only owner-approved candidate/production environments, exact source-tree and artifact identity, release prerequisites and ticket closure. Neither environment approval is performed automatically by an agent.
 
 ## Before tagging or distributing binaries
 

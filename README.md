@@ -80,6 +80,8 @@ The [verification scope](docs/RUSTPLC_PARITY_LEDGER.md) records preparation chec
 
 ## Contribute
 
+The [delivery process](docs/DELIVERY.md) defines issue readiness, PR checks, development/main promotion, candidate approval, production publication and rollback. Development integration is separate from released-binary acceptance.
+
 Read [CONTRIBUTING.md](CONTRIBUTING.md). Start with an existing issue or a reproducible new report, then use a scoped branch, tests, and a reviewed PR into `development`. Releases promote reviewed changes to `main`.
 
 Report RustPLC bugs and propose RustPLC changes in this repository. A fix intended for OpenPLC or STruC++ needs separate reproduction against that upstream, its own contribution-rule review, and the owner's manual review before an agent submits it.

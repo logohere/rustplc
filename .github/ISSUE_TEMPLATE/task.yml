@@ -1,0 +1,38 @@
+name: Delivery task
+description: A scoped maintenance, CI, documentation or verification task
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: The observable outcome and why it matters.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Current source, failing check, prior issue or pinned authority. Use sanitized examples.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and exclusions
+      description: What changes, what does not, and any license/privacy/compatibility boundaries.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance checks
+      description: Checkboxes with runnable commands or concrete manual evidence; record failures and skips.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and risks
+      description: Blocking issues, platform gaps, required owner decisions and rollback where applicable.
+    validations:
+      required: true

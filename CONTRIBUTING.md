@@ -14,13 +14,15 @@ Use an existing issue for the same failure. Otherwise use the bug form and inclu
 
 ## Workflow
 
+See [DELIVERY.md](docs/DELIVERY.md) for issue status, required process checks, promotion, release approval and closure semantics.
+
 1. Branch from `development`: `bugfix/gh-<issue>-<slug>` or `feature/gh-<issue>-<slug>`.
 2. Keep one issue and coherent change per branch. Preserve unrelated work.
 3. Add a focused regression. Run the README checks and applicable differential, end-to-end, and manual tests. Record failures and skips; a skip is not a pass.
 4. Use concise Conventional Commits explaining why. No credentials, private links, machine paths, or conversation logs.
    Use a GitHub public noreply email for commit authorship and attribution trailers; private contact addresses and machine identities must not enter public Git history.
 5. Open a PR against `development`, link the issue, complete the template, and disclose substantial AI assistance.
-6. Obtain maintainer review and rerun checks after changes. Release PRs promote `development` to `main`. Never push directly or force-push protected branches.
+6. Obtain maintainer review and rerun checks after changes. Squash normal development PRs. Release PRs promote `development` to `main`; a separate reviewed merge PR synchronizes main's ancestry back into development. Never push directly or force-push protected branches.
 
 Compiler/runtime changes need a generated-program or protocol end-to-end test. UI changes need rendered interaction checks. Record actual manual test steps and platform gaps; macOS simulation does not prove Windows/Linux packaging or hardware behavior.
 
