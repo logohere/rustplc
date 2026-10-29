@@ -310,7 +310,6 @@ mod tests {
 
         runtime.start().unwrap();
         model = transition(model, Action::Start).unwrap();
-        thread::sleep(Duration::from_millis(30));
         assert_eq!(runtime.state().unwrap(), PlcState::Running);
 
         let values = runtime.debug_values(&project).unwrap();
@@ -322,8 +321,19 @@ mod tests {
             .force_debug_value(&project, "instance0.x", "123")
             .unwrap();
         model = transition(model, Action::ForceValue).unwrap();
-        thread::sleep(Duration::from_millis(30));
-        let forced = runtime.debug_values(&project).unwrap();
+        let deadline = Instant::now() + Duration::from_secs(1);
+        let forced = loop {
+            let values = runtime.debug_values(&project).unwrap();
+            assert_eq!(values.len(), 1);
+            if values[0].variable.forced && values[0].display == "123" {
+                break values;
+            }
+            assert!(
+                Instant::now() < deadline,
+                "queued force was not applied at a scan boundary"
+            );
+            thread::sleep(Duration::from_millis(10));
+        };
         assert_eq!(forced[0].display, "123");
 
         runtime
