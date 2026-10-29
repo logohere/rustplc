@@ -62,6 +62,7 @@ python3 scripts/check_durable_writes.py
 python3 scripts/check_dependency_floors.py
 python3 scripts/check_versioning.py
 python3 scripts/check_public_source.py
+python3 scripts/check_public_history.py
 ```
 
 The [verification scope](docs/RUSTPLC_PARITY_LEDGER.md) records preparation checks, gaps, and explicitly invoked heavy tests. The [differential harness](docs/DIFFERENTIAL_HARNESS.md) compares pinned upstream behavior. Neither substitutes for a current run.

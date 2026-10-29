@@ -18,6 +18,7 @@ Use an existing issue for the same failure. Otherwise use the bug form and inclu
 2. Keep one issue and coherent change per branch. Preserve unrelated work.
 3. Add a focused regression. Run the README checks and applicable differential, end-to-end, and manual tests. Record failures and skips; a skip is not a pass.
 4. Use concise Conventional Commits explaining why. No credentials, private links, machine paths, or conversation logs.
+   Use a GitHub public noreply email for commit authorship and attribution trailers; private contact addresses and machine identities must not enter public Git history.
 5. Open a PR against `development`, link the issue, complete the template, and disclose substantial AI assistance.
 6. Obtain maintainer review and rerun checks after changes. Release PRs promote `development` to `main`. Never push directly or force-push protected branches.
 
