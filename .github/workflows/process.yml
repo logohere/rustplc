@@ -1,0 +1,32 @@
+name: Delivery process
+
+on:
+  pull_request:
+    branches: [development, main]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+  push:
+    branches: [development, main]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Pull request number to revalidate after issue metadata changes
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+
+jobs:
+  process:
+    name: Process checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - run: python3 scripts/check_pr_process.py
+        env:
+          GH_TOKEN: ${{ github.token }}

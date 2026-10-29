@@ -1,6 +1,6 @@
 ## Issue
 
-Link the existing issue or reviewed new report.
+Development: put one `Closes #<issue>` directive on its own line. Main promotion: use `Refs #<release-issue>` so publication, not promotion, closes the release ticket. See docs/DELIVERY.md.
 
 ## Change
 
@@ -14,6 +14,7 @@ Record exact commands/results, manual steps, platforms, failures and skips.
 
 - [ ] Read CONTRIBUTING.md and affected code/rules.
 - [ ] Scoped to the linked issue with an appropriate regression.
+- [ ] Issue has a milestone, defined acceptance checks and current work status.
 - [ ] Applicable unit, differential, end-to-end and manual checks performed; gaps disclosed.
 - [ ] No private projects, credentials, machine/profile data, or unnecessary dependencies.
 - [ ] Licenses, provenance, documentation and compatibility/safety claims reviewed.

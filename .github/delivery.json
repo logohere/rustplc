@@ -1,0 +1,8 @@
+{
+  "repository": "logohere/rustplc",
+  "development_branch": "development",
+  "release_branch": "main",
+  "dependency_tracking_issue": 27,
+  "release_acceptance_issues": [20],
+  "required_checks": ["Rust checks", "Public source checks", "Dependency audit", "Process checks", "Portable checks"]
+}

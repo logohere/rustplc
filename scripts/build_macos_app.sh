@@ -22,7 +22,7 @@ MACOS="$CONTENTS/MacOS"
 RESOURCES="$CONTENTS/Resources"
 
 cd "$ROOT"
-cargo build --release -p open-rust-plc-editor
+cargo build --locked --release -p open-rust-plc-editor
 
 python3 - "$TARGET_DIR" "$APP_NAME" <<'PYCLEAN'
 import shutil, sys

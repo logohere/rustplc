@@ -1,0 +1,51 @@
+name: Release preparation
+description: Review a development-to-main promotion and exact release candidate
+labels: [release]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: Exact workspace version, candidate commit, supported OS/architecture and release scope.
+    validations:
+      required: true
+  - type: textarea
+    id: candidate
+    attributes:
+      label: Candidate identity
+      description: Record Source tree followed by a colon and the exact 40-character git tree ID. After testing the CI-built artifact, also record Artifact SHA-256 followed by a colon and its exact 64-character digest, each on its own line.
+    validations:
+      required: true
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Acceptance
+      options:
+        - label: Exact source revision/version and all required CI checks are verified.
+        - label: Packaged-app acceptance prerequisite and applicable heavy/manual checks are completed with evidence.
+        - label: Binary privacy, signing metadata, resources, notices and corresponding source are reviewed.
+        - label: Known dependency warnings and supported-platform exclusions have explicit owner review.
+        - label: Main promotion scope, known risks, release notes and rollback procedure are reviewed.
+  - type: checkboxes
+    id: publication
+    attributes:
+      label: Publication acceptance
+      options:
+        - label: The exact CI-built candidate artifact was downloaded and its hash was verified.
+        - label: Actual candidate UI, failure/recovery paths and binary privacy/signing metadata were inspected.
+        - label: Required notices and corresponding source are available for the distributed bytes.
+        - label: This exact artifact is approved for publication with the recorded known risks and platform scope.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Verification
+      description: Exact commands/results, artifact hashes, candidate interactions, failures and skipped checks.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Known risks
+      description: Remaining advisories, scope exclusions, signing/notarization status and rollback to a prior immutable release.
+    validations:
+      required: true
